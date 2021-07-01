@@ -11,7 +11,6 @@ describe("Input Check", () => {
     const actual = substitution(input1, input2, input3);
     expect(actual).to.equal(expected);
   });
-
   it("Should return false if any characters are duplicated in the substitution alphabet", () => {
     const input1 = "aAaA";
     const input2 = "xoyqmcgrukswaflnthdjpzivvv";
@@ -21,8 +20,7 @@ describe("Input Check", () => {
     expect(actual).to.equal(expected);
   });
 });
-
-describe("EncodingDecoding Check", () => {
+describe("Encoding/Decoding Check", () => {
   it("Should maintain spaces when encoding", () => {
     const input1 = "You are an excellent spy";
     const input2 = "xoyqmcgrukswaflnthdjpzibev";
@@ -31,7 +29,6 @@ describe("EncodingDecoding Check", () => {
     const actual = substitution(input1, input2, input3);
     expect(actual).to.equal(expected);
   });
-
   it("Should ignore capital letters", () => {
     const input1 = "YoU aRe An ExCeLlEnT sPy";
     const input2 = "xoyqmcgrukswaflnthdjpzibev";
@@ -40,7 +37,6 @@ describe("EncodingDecoding Check", () => {
     const actual = substituion(input1, input2, input3);
     expect(actual).to.equal(expected);
   });
-
   it("Should properly translate message with given substitution alphabet", () => {
     const input1 = "jrufscpw";
     const input2 = "xoyqmcgrukswaflnthdjpzibev";
