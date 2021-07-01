@@ -1,61 +1,52 @@
 // Write your tests here!
-const { expect } = require("chai");
-const substitutionModule = require("../src/substitution");
+const expect = require("chai").expect;
+const substitution = require("../src/substitution").substitution;
 
-describe("substitution", () => {
-  it("should encode a message", () => {
-    const actual = substitutionModule.substitution(
-      "thinkful",
-      "xoyqmcgrukswaflnthdjpzibev"
-    );
-    const expected = "jrufscpw";
-    expected(actual).to.eql(expected);
+describe("Input Check", () => {
+  it("Should return false if given substitution alphabet is not exactly 26 characters", () => {
+    const input1 = "iji";
+    const input2 = "xoyqmcgrukswaflnthdjpzib"; //24 chars instead of 26
+    const input3 = true;
+    const expected = false;
+    const actual = substitution(input1, input2, input3);
+    expect(actual).to.equal(expected);
   });
 
-  it("should encode a message that has spaces in it", () => {
-    const actual = substitutionModule.substitution(
-      "You are an excellent spy",
-      "xoyqmcgrukswaflnthdjpzibev"
-    );
+  it("Should return false if any characters are duplicated in the substitution alphabet", () => {
+    const input1 = "aAaA";
+    const input2 = "xoyqmcgrukswaflnthdjpzivvv";
+    const input3 = true;
+    const expected = false;
+    const actual = substitution(input1, input2, input3);
+    expect(actual).to.equal(expected);
+  });
+});
+
+describe("EncodingDecoding Check", () => {
+  it("Should maintain spaces when encoding", () => {
+    const input1 = "You are an excellent spy";
+    const input2 = "xoyqmcgrukswaflnthdjpzibev";
+    const input3 = true;
     const expected = "elp xhm xf mbymwwmfj dne";
-    expect(actual).to.eql(expected);
+    const actual = substitution(input1, input2, input3);
+    expect(actual).to.equal(expected);
   });
 
-  it("should ignore capital letters", () => {
-    const actual = substitutionModule.substitution(
-      "You are an excellent spy",
-      "xoyqmcgrukswaflnthdjpzibev"
-    );
+  it("Should ignore capital letters", () => {
+    const input1 = "YoU aRe An ExCeLlEnT sPy";
+    const input2 = "xoyqmcgrukswaflnthdjpzibev";
+    const input3 = true;
     const expected = "elp xhm xf mbymwwmfj dne";
-    expect(actual).to.eql(expected);
+    const actual = substituion(input1, input2, input3);
+    expect(actual).to.equal(expected);
   });
 
-  it("should decode a message", () => {
-    const actual = substitutionModule.substitution(
-      "y&ii$r&",
-      "$wae&zrdxtfcygvuhbijnokmpl",
-      false
-    );
-    const expected = "message";
-  });
-
-  it("should decode a message that has spaces in it", () => {
-    const actual = substitutionModule.substitution(
-      "elp xhm xf mybywwmfj dne",
-      "xoyqmcgrukswaflnthdjpzibev",
-      false
-    );
-    const expected = "you are an excellent spy";
-    expect(actual).to.eql(expected);
-  });
-
-  it("should return false if the alphabet parameter isn't exactly 26 characters", () => {
-    const actual = substitutionModule.substitution("thinkful", "short");
-    expect(actual).to.be.false;
-  });
-
-  it("should return false if the alphabet parameter has duplicate characters", () => {
-    const actual = substitutionModule.substitution("thinkful", "shhorrt");
-    expect(actual).to.be.false;
+  it("Should properly translate message with given substitution alphabet", () => {
+    const input1 = "jrufscpw";
+    const input2 = "xoyqmcgrukswaflnthdjpzibev";
+    const input3 = false;
+    const expected = "thinkful";
+    const actual = substitution(input1, input2, input3);
+    expect(actual).to.equal(expected);
   });
 });
